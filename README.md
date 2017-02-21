@@ -1,1 +1,19 @@
 # GuessingGame
+
+Each round of the game begins by you (the human player) thinking of an object.  The computer will try to guess your object by asking you a series of yes or no questions.  Eventually the computer will have asked enough questions that it thinks it knows what object you are thinking of.  It will make a guess about what your object is.  If this guess is correct, the computer wins; if not, you win.
+The computer keeps track of a binary tree whose nodes represent questions and answers. A “question” node contains a left “yes” subtree and a right “no” subtree.  An “answer” node is a leaf.  The idea is that this tree can be traversed to ask the human player a series of questions. 
+
+For example, in the tree below, the computer would begin the game by asking the player, “Is it an animal?”  If the player says “yes,” the computer goes left to the “yes” subtree and then asks the user, “Can it fly?”  If the user had instead said “no,” the computer would go right to the “no” subtree and then ask the user, “Does it have wheels?”
+This pattern continues until the game reaches a leaf “answer” node.  Upon reaching an answer node, the computer asks whether that answer is the correct answer.  If so, the computer wins.
+
+![im](https://cloud.githubusercontent.com/assets/11382116/23157998/3bf51fc0-f7d2-11e6-9adc-b5d08bdcb807.gif)
+
+Initially the computer is not very intelligent, but it grows more intelligent each time it loses a game.  If the computer's answer guess is incorrect, you must give it a new question it can ask to help it in future games.  For example, suppose that the player is thinking of a cat.  He will end up at the leaf node for mouse.  The computer will guess mouse and the user will say that the guess is wrong.  At that point, the computer asks what the user was thinking of (“cat”) and a question to distinguish it from a mouse (the user might say, “Does it meow?”) and what the answer is. The computer takes the new information from a lost game and uses it to replace the old incorrect answer node with a new question node that has the old incorrect answer and new correct answer as its children:
+
+![image002](https://cloud.githubusercontent.com/assets/11382116/23158095/a8a5ca98-f7d2-11e6-8484-9736d5fcb253.gif)
+
+Your program also have to be able to write the tree to an output file and read it back in.  That way your question tree can grow each time a user runs the program.  To be able to read and write the tree, we need a set of rules for how to represent the tree which we’ll refer to as the standard format for a question tree.  A tree is specified by a nonempty sequence of line pairs, one for each node of the tree.  The first line of each pair should contain either the text “Q:” to indicate that it is a question node (i.e., a branch node) or the text “A:” to indicate that it is an answer node (i.e., a leaf node).  The second line of each pair should contain the text for that node (the question or answer).  The nodes should appear in preorder (i.e., in the order produced by a preorder traversal of the tree).
+This program involves interaction with the user.  As always, we will use a Scanner linked to System.in to do this.  But with interactive programs, you don’t want to have more than one Scanner linked to System.in.  For that reason, in this program your class will construct the console Scanner.  It turns out that all that the main method needs is the ability to ask a yes/no question of the user.  So the interface for your class will include a method yesTo that main will call when it wants to interact with the user.  You must construct a single console Scanner that you store in a data field and use throughout your class.  All calls to the console Scanner should be on the nextLine method so that you always read an entire line of user input.
+
+# Sample Screen Shot of Output
+![capture](https://cloud.githubusercontent.com/assets/11382116/23158464/23c48ca4-f7d4-11e6-8a05-9d23871d1892.PNG)
